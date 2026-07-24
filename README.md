@@ -210,86 +210,68 @@ The smart contract provides:
 
 ## 📸 Application Screenshots
 
-<p align="center">
-  <img src="screenshoots/LoginPage.jpg" alt="Login Page" width="800"/>
-</p>
+## 🏠 Login Page
 
 <p align="center">
-  <b>Login Page</b><br>
-  Secure entry point for administrators to access the certificate management system.
+<img src="screenshots/LoginPage.jpg" width="900">
 </p>
 
 ---
 
-### 🏠 Dashboard
+## 📊 Dashboard
 
 <p align="center">
-  <img src="screenshoots/DashboardPage.jpg" alt="Dashboard" width="800"/>
-</p>
-
-<p align="center">
-  Central dashboard providing quick access to certificate issuance and verification.
+<img src="screenshots/DashboardPage.jpg" width="900">
 </p>
 
 ---
 
-### 📜 Issue Certificate
+## 📜 Issue Certificate
 
 <p align="center">
-  <img src="screenshoots/IssueCertiPage.jpg" alt="Issue Certificate" width="800"/>
-</p>
-
-<p align="center">
-  Fill in student and certificate details to issue a new blockchain-backed certificate.
+<img src="screenshots/IssuseCertiPage.jpg" width="900">
 </p>
 
 ---
 
-### ✅ Certificate Issued Successfully
+## ✅ Certificate Issued Successfully
 
 <p align="center">
-  <img src="screenshoots/CertiIssued.jpg" alt="Certificate Issued" width="800"/>
-</p>
-
-<p align="center">
-  Displays the generated certificate hash and confirms successful blockchain registration.
+<img src="screenshots/CertiIssued.jpg" width="900">
 </p>
 
 ---
 
-### 🔍 Verify Certificate
+## 🔍 Verify Certificate
 
 <p align="center">
-  <img src="screenshoots/VerifyCertiPage.jpg" alt="Verify Certificate" width="800"/>
-</p>
-
-<p align="center">
-  Verify certificate authenticity using the certificate hash stored on the blockchain.
+<img src="screenshots/VerifyCertiPage.jpg" width="900">
 </p>
 
 ---
 
-### 🎓 Certificate Details
+## 🎓 Certificate Verification Result
 
 <p align="center">
-  <img src="screenshoots/CertiVerified.jpg" alt="Certificate Verified" width="800"/>
-</p>
-
-<p align="center">
-  Shows complete certificate information retrieved securely from the blockchain.
+<img src="screenshots/CertiVerified.jpg" width="900">
 </p>
 
 ---
 
-### 👨‍💼 Admin Panel
+## 👨‍💼 Admin Dashboard
 
 <p align="center">
-  <img src="screenshots/AdminPage.jpg" alt="Admin Panel" width="800"/>
+<img src="screenshots/AdminPage.jpg" width="900">
 </p>
 
+---
+
+## 💾 SQLite Database
+
 <p align="center">
-  Administrative interface for managing certificates, viewing reports, and monitoring system statistics.
+<img src="screenshots/DatabasePage.jpg" width="900">
 </p>
+
 ---
 
 # Future Enhancements
