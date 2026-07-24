@@ -1,0 +1,24 @@
+{
+  "name": "certificate-registry",
+  "version": "1.0.0",
+  "description": "Blockchain-based certificate verification system",
+  "main": "scripts/deploy.py",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "blockchain",
+    "certificate",
+    "ethereum",
+    "smart-contract",
+    "solidity"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "web3": "^4.16.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^7.0.0"
+  }
+}

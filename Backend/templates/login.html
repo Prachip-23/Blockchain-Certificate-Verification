@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CertAuth - Login with MetaMask</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 60px 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .logo-section {
+            margin-bottom: 40px;
+        }
+
+        .logo-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .logo-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #2180bd 0%, #1a66a5 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(33, 128, 189, 0.4);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 128, 189, 0.6);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .features {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .feature-text {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .alert {
+            margin-top: 30px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #28a745;
+            color: #155724;
+        }
+
+        .alert-info {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            color: #004085;
+        }
+
+        .wallet-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+            color: #004085;
+            font-size: 12px;
+            display: none;
+        }
+
+        .wallet-info.show {
+            display: block;
+        }
+
+        .wallet-address {
+            font-weight: bold;
+            font-family: monospace;
+            word-break: break-all;
+            margin-top: 10px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .back-link {
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #2180bd;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .login-container {
+                padding: 40px 30px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-section">
+            <div class="logo-icon">🔗</div>
+            <div class="logo-text">CertAuth</div>
+            <div class="subtitle">Blockchain Certificate Verification</div>
+        </div>
+
+        <div class="alert alert-warning" id="metamaskAlert"></div>
+        <div class="alert alert-error" id="errorMessage"></div>
+        <div class="alert alert-info" id="infoMessage"></div>
+        <div class="alert alert-success" id="successMessage"></div>
+        <div class="wallet-info" id="walletInfo">
+            ✅ Connected to MetaMask<br>
+            <div class="wallet-address" id="walletAddress"></div>
+        </div>
+
+        <button class="login-btn" id="loginBtn" onclick="handleLogin()">
+            🔗 Connect MetaMask
+        </button>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <div class="feature-text">Issue Certificates</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✅</div>
+                <div class="feature-text">Verify Instantly</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-text">Immutable Records</div>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="/landing">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // CHECK IF ALREADY AUTHENTICATED
+        // ========================================
+        /*
+        window.addEventListener('load', async () => {
+            try {
+                const response = await fetch('/api/auth/status');
+                const data = await response.json();
+                
+                if (data.authenticated) {
+                    showSuccess('✅ Already connected! Redirecting...');
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 1500);
+                }
+            } catch (e) {
+                console.log('Auth check');
+            }
+        });
+        */
+
+        // ========================================
+        // SIMPLE METAMASK CONNECTION - NO SIGNING
+        // ========================================
+
+        async function handleLogin() {
+            // Check if MetaMask is installed
+            if (typeof window.ethereum === 'undefined') {
+                showWarning('⚠️ MetaMask is not installed. Install it from https://metamask.io');
+                return;
+            }
+
+            const loginBtn = document.getElementById('loginBtn');
+            
+            try {
+                // Disable button and show loading
+                loginBtn.disabled = true;
+                loginBtn.innerHTML = '<span class="loading"></span>Connecting...';
+                clearMessages();
+
+                // Step 1: Request MetaMask to show account selection (NO SIGNING!)
+                showInfo('⏳ Requesting MetaMask...');
+                
+                const accounts = await window.ethereum.request({
+                    method: 'eth_requestAccounts'
+                });
+
+                if (!accounts || accounts.length === 0) {
+                    showError('❌ No account selected');
+                    resetButton();
+                    return;
+                }
+
+                const address = accounts[0];
+                showInfo(`📍 Selected: ${address.substring(0, 6)}...${address.substring(address.length - 4)}`);
+
+                // Step 2: Send address to backend to create session
+                showInfo('📤 Creating session...');
+                
+                const connectResponse = await fetch('/api/auth/connect', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        address: address
+                    }),
+                    credentials: 'include'
+                });
+
+                const connectData = await connectResponse.json();
+
+                if (connectData.success) {
+                    // Store locally
+                    localStorage.setItem('wallet_address', address);
+
+                    // Show success message
+                    showConnected(address);
+                    
+                    // Redirect after 2 seconds (NO PAGE RELOAD ISSUES)
+                    setTimeout(() => {
+                        window.location.replace('/dashboard');
+                    }, 2000);
+                } else {
+                    showError('❌ Connection failed: ' + (connectData.error || 'Unknown error'));
+                    resetButton();
+                }
+
+            } catch (error) {
+                console.error('Login error:', error);
+                
+                if (error.code === 4001) {
+                    showError('❌ You rejected the connection request');
+                } else {
+                    showError('❌ Error: ' + error.message);
+                }
+                
+                resetButton();
+            }
+        }
+
+        // ========================================
+        // UI HELPER FUNCTIONS
+        // ========================================
+
+        function clearMessages() {
+            document.getElementById('errorMessage').classList.remove('show');
+            document.getElementById('infoMessage').classList.remove('show');
+            document.getElementById('successMessage').classList.remove('show');
+            document.getElementById('walletInfo').classList.remove('show');
+        }
+
+        function showWarning(message) {
+            clearMessages();
+            document.getElementById('metamaskAlert').textContent = message;
+            document.getElementById('metamaskAlert').classList.add('show');
+        }
+
+        function showError(message) {
+            clearMessages();
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('errorMessage').classList.add('show');
+        }
+
+        function showInfo(message) {
+            clearMessages();
+            document.getElementById('infoMessage').textContent = message;
+            document.getElementById('infoMessage').classList.add('show');
+        }
+
+        function showSuccess(message) {
+            clearMessages();
+            document.getElementById('successMessage').textContent = message;
+            document.getElementById('successMessage').classList.add('show');
+        }
+
+        function showConnected(address) {
+            clearMessages();
+            document.getElementById('walletAddress').textContent = address;
+            document.getElementById('walletInfo').classList.add('show');
+            document.getElementById('successMessage').textContent = '✅ Successfully connected! Redirecting to dashboard...';
+            document.getElementById('successMessage').classList.add('show');
+        }
+
+        function resetButton() {
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.disabled = false;
+            loginBtn.innerHTML = '🔗 Connect MetaMask';
+        }
+
+        // Listen for account changes
+        if (typeof window.ethereum !== 'undefined') {
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    showWarning('⚠️ Please connect an account');
+                    localStorage.removeItem('wallet_address');
+                } else {
+                    showInfo('Account changed. Please log in again.');
+                }
+            });
+
+            window.ethereum.on('chainChanged', () => {
+                showWarning('⚠️ Network changed. Please refresh the page.');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CertAuth - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: #1e3c72;
+            font-size: 32px;
+        }
+        
+        .header-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .wallet-info {
+            background: #e7f3ff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid #b3d9ff;
+            color: #004085;
+        }
+        
+        .wallet-label {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .wallet-address {
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 14px;
+            word-break: break-all;
+        }
+        
+        .logout-btn {
+            background: #d9534f;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: #c9302c;
+            transform: translateY(-2px);
+        }
+        
+        .content {
+            margin-top: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section h2 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+        
+        .card-desc {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .card-link {
+            color: #2180bd;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .card-link:hover {
+            color: #1a66a5;
+        }
+        
+        .status-message {
+            background: #d4edda;
+            border: 1px solid #28a745;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .header-right {
+                width: 100%;
+                flex-direction: column;
+            }
+            
+            .wallet-info {
+                width: 100%;
+            }
+            
+            .logout-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- HEADER -->
+        <div class="header">
+            <div>
+                <h1>🔗 CertAuth Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <div class="wallet-info">
+                    <div class="wallet-label">Connected Wallet:</div>
+                    <div class="wallet-address" id="walletAddress">
+                        {{ wallet_address }}
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="handleLogout()">
+                    🚪 Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <!-- SUCCESS MESSAGE -->
+            <div class="status-message">
+                ✅ Successfully logged in with MetaMask!
+            </div>
+
+            <!-- ISSUE CERTIFICATE SECTION -->
+            <div class="section">
+                <h2>📝 Issue Certificate</h2>
+                <div class="card">
+                    <div class="card-title">Create & Issue Digital Certificates</div>
+                    <div class="card-desc">
+                        You are authenticated as: <strong id="displayAddress">{{ wallet_address }}</strong>
+                    </div>
+                    <div class="card-desc">
+                        Upload a document and issue it as a blockchain certificate. The certificate will be stored immutably on the blockchain.
+                    </div>
+                    <a href="/issue" class="card-link">
+                        → Go to Issue Certificate
+                    </a>
+                </div>
+            </div>
+
+            <!-- VERIFY CERTIFICATE SECTION -->
+            <div class="section">
+                <h2>✅ Verify Certificate</h2>
+                <div class="card">
+                    <div class="card-title">Verify Any Certificate</div>
+                    <div class="card-desc">
+                        Verify any certificate on the blockchain without contacting the issuer.
+                    </div>
+                    <div class="card-desc">
+                        Enter a certificate hash to verify its authenticity and details.
+                    </div>
+                    <a href="/verify" class="card-link">
+                        → Go to Verify Certificate
+                    </a>
+                </div>
+            </div>
+
+            <!-- ADMIN PANEL SECTION -->
+            <div class="section">
+                <h2>🔒 Admin Panel</h2>
+                <div class="card">
+                    <div class="card-title">Administrator Controls</div>
+                    <div class="card-desc">
+                        Access administrative functions and settings.
+                    </div>
+                    <a href="/admin" class="card-link">
+                        → Go to Admin Panel
+                    </a>
+                </div>
+            </div>
+
+            <!-- STATS SECTION -->
+            <div class="section">
+                <h2>📊 Quick Stats</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div class="card">
+                        <div class="card-title">10K+</div>
+                        <div class="card-desc">Certificates Issued</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">5K+</div>
+                        <div class="card-desc">Active Users</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">99.9%</div>
+                        <div class="card-desc">System Uptime</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">0%</div>
+                        <div class="card-desc">Fraud Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Verify user is authenticated
+        window.addEventListener('load', async () => {
+            try {
+                const response = await fetch('/api/auth/status');
+                const data = await response.json();
+                
+                if (!data.authenticated) {
+                    // Not authenticated - redirect to login
+                    console.warn('Not authenticated, redirecting to login...');
+                    window.location.href = '/login';
+                    return;
+                }
+                
+                console.log('✅ Dashboard loaded successfully');
+                console.log('Connected address:', data.address);
+                
+            } catch (e) {
+                console.error('Auth check failed:', e);
+                // On error, redirect to login as safety measure
+                window.location.href = '/login';
+            }
+        });
+        
+        // Logout handler
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Clear session
+                fetch('/logout', { method: 'POST' })
+                    .then(() => {
+                        // Clear local storage
+                        localStorage.removeItem('wallet_address');
+                        // Redirect to landing
+                        window.location.href = '/landing';
+                    })
+                    .catch(e => {
+                        console.error('Logout error:', e);
+                        // Still redirect even if error
+                        localStorage.removeItem('wallet_address');
+                        window.location.href = '/landing';
+                    });
+            }
+        }
+    </script>
+</body>
+</html>

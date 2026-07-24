@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Certificate - CertAuth</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .header h1 {
+            color: #1e3c72;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1e3c72;
+            font-size: 14px;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2180bd;
+            box-shadow: 0 0 0 3px rgba(33, 128, 189, 0.1);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .btn-primary {
+            background: #2180bd;
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: #1a66a5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(33, 128, 189, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .message.show {
+            display: block;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            border: 1px solid #28a745;
+            color: #155724;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .message.info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .success-box {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: #d4edda;
+            border: 1px solid #28a745;
+            border-radius: 8px;
+            color: #155724;
+        }
+        
+        .success-box.show {
+            display: block;
+        }
+        
+        .success-box h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .detail-item {
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            display: inline-block;
+            min-width: 100px;
+        }
+        
+        .detail-value {
+            font-family: monospace;
+            word-break: break-all;
+        }
+        
+        .download-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #28a745;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            margin-right: 10px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>📝 Issue New Certificate</h1>
+            <p>Fill details to create a blockchain-verified certificate</p>
+        </div>
+
+        <!-- MESSAGES -->
+        <div class="message" id="message"></div>
+
+        <!-- FORM -->
+        <form id="issueForm">
+            <!-- Student Name -->
+            <div class="form-group">
+                <label for="studentName">Student Name *</label>
+                <input type="text" id="studentName" placeholder="e.g., Aditi Parmar" required>
+            </div>
+
+            <!-- Student Roll Number -->
+            <div class="form-group">
+                <label for="studentRoll">Student Roll Number</label>
+                <input type="text" id="studentRoll" placeholder="e.g., CS-001">
+            </div>
+
+            <!-- Course Name -->
+            <div class="form-group">
+                <label for="course">Course Name *</label>
+                <input type="text" id="course" placeholder="e.g., B.Tech Computer Science" required>
+            </div>
+
+            <!-- Issue Date -->
+            <div class="form-group">
+                <label for="issueDate">Issue Date *</label>
+                <input type="date" id="issueDate" required>
+            </div>
+
+            <!-- Recipient Wallet Address -->
+            <div class="form-group">
+                <label for="recipientAddress">Recipient Wallet Address *</label>
+                <input type="text" id="recipientAddress" placeholder="0x..." required>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    ✅ Issue Certificate
+                </button>
+                <a href="/dashboard" class="btn btn-secondary" style="text-align: center; text-decoration: none;">
+                    ← Back to Dashboard
+                </a>
+            </div>
+        </form>
+
+        <!-- SUCCESS BOX -->
+        <div class="success-box" id="successBox">
+            <h3>✅ Certificate Issued Successfully!</h3>
+            
+            <div class="detail-item">
+                <span class="detail-label">Student:</span>
+                <span class="detail-value" id="successStudentName">-</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Course:</span>
+                <span class="detail-value" id="successCourse">-</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Issue Date:</span>
+                <span class="detail-value" id="successIssueDate">-</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Recipient:</span>
+                <span class="detail-value" id="successRecipient">-</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">TX Hash:</span>
+                <span class="detail-value" id="successTxHash">-</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Cert Hash:</span>
+                <span class="detail-value" id="successCertHash">-</span>
+            </div>
+            
+            <div class="download-section">
+                <button class="download-btn" onclick="downloadCertificate()">
+                    📥 Download Certificate
+                </button>
+                <button class="download-btn" onclick="copyCertHash()">
+                    📋 Copy Hash
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.js"></script>
+    <script>
+        // Set today's date as default
+        document.getElementById('issueDate').valueAsDate = new Date();
+
+        // Form submission
+        document.getElementById('issueForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const studentName = document.getElementById('studentName').value;
+            const studentRoll = document.getElementById('studentRoll').value;
+            const course = document.getElementById('course').value;
+            const issueDate = document.getElementById('issueDate').value;
+            const recipientAddress = document.getElementById('recipientAddress').value;
+
+            // Validate address
+            if (!recipientAddress.startsWith('0x') || recipientAddress.length !== 42) {
+                showMessage('Invalid wallet address format (must be 42 characters starting with 0x)', 'error');
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading"></span>Issuing...';
+
+            try {
+                // Generate hash from student details
+                const certData = JSON.stringify({
+                    studentName,
+                    studentRoll,
+                    course,
+                    issueDate,
+                    recipientAddress,
+                    timestamp: new Date().toISOString()
+                });
+                
+                const hash = sha256(certData);
+                
+                showMessage('Sending to blockchain...', 'info');
+
+                const response = await fetch('/api/cert/issue', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        hash: hash,
+                        studentName: studentName,
+                        studentRoll: studentRoll,
+                        course: course,
+                        issueDate: issueDate,
+                        recipientAddress: recipientAddress
+                    }),
+                    credentials: 'include'
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Hide form
+                    document.getElementById('issueForm').style.display = 'none';
+                    document.getElementById('message').classList.remove('show');
+                    
+                    // Show success box
+                    document.getElementById('successStudentName').textContent = studentName;
+                    document.getElementById('successCourse').textContent = course;
+                    document.getElementById('successIssueDate').textContent = issueDate;
+                    document.getElementById('successRecipient').textContent = recipientAddress;
+                    document.getElementById('successTxHash').textContent = data.tx_hash;
+                    document.getElementById('successCertHash').textContent = data.cert_hash;
+                    
+                    // Store for download
+                    window.certData = {
+                        studentName,
+                        studentRoll,
+                        course,
+                        issueDate,
+                        recipientAddress,
+                        txHash: data.tx_hash,
+                        certHash: data.cert_hash
+                    };
+                    
+                    document.getElementById('successBox').classList.add('show');
+                    showMessage(`✅ Certificate issued successfully!`, 'success');
+                } else {
+                    showMessage(`❌ Error: ${data.error || 'Unknown error'}`, 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '✅ Issue Certificate';
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage(`❌ Error: ${error.message}`, 'error');
+                submitBtn.disabled = false;
+                submitBtn.textContent = '✅ Issue Certificate';
+            }
+        });
+
+        function showMessage(text, type = 'info') {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = `message show ${type}`;
+            
+            if (type !== 'info') {
+                setTimeout(() => {
+                    messageDiv.classList.remove('show');
+                }, 6000);
+            }
+        }
+
+        function downloadCertificate() {
+            if (!window.certData) return;
+            
+            const data = window.certData;
+            const content = `
+CERTIFICATE
+==================================================
+
+Student Name: ${data.studentName}
+Roll Number: ${data.studentRoll}
+Course: ${data.course}
+Issue Date: ${data.issueDate}
+Recipient Address: ${data.recipientAddress}
+
+==================================================
+
+Blockchain Verification:
+TX Hash: ${data.txHash}
+Certificate Hash: ${data.certHash}
+
+This certificate has been issued and verified on the blockchain.
+
+==================================================
+Issued by: CertAuth System
+Date: ${new Date().toLocaleString()}
+            `;
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Certificate_${data.studentName.replace(/\s+/g, '_')}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        function copyCertHash() {
+            if (!window.certData) return;
+            
+            const hash = window.certData.certHash;
+            navigator.clipboard.writeText(hash).then(() => {
+                alert('Certificate hash copied to clipboard!');
+            });
+        }
+
+        // Verify session on load
+        window.addEventListener('load', async () => {
+            try {
+                const response = await fetch('/api/auth/status');
+                const data = await response.json();
+                
+                if (!data.authenticated) {
+                    window.location.href = '/login';
+                }
+            } catch (e) {
+                window.location.href = '/login';
+            }
+        });
+    </script>
+</body>
+</html>
