@@ -221,7 +221,7 @@ The smart contract provides:
 ## 📊 Dashboard
 
 <p align="center">
-<img src="screenshoots/DashboardPage.jpg" width="900">
+<img src="screenshoots/DashboardPage.jpg" width="500">
 </p>
 
 ---
@@ -229,7 +229,7 @@ The smart contract provides:
 ## 📜 Issue Certificate
 
 <p align="center">
-<img src="screenshoots/IssuseCertiPage.jpg" width="900">
+<img src="screenshoots/IssuseCertiPage.jpg" width="500">
 </p>
 
 ---
@@ -237,7 +237,7 @@ The smart contract provides:
 ## ✅ Certificate Issued Successfully
 
 <p align="center">
-<img src="screenshoots/CertiIssused.jpg" width="900">
+<img src="screenshoots/CertiIssused.jpg" width="500">
 </p>
 
 ---
@@ -245,7 +245,7 @@ The smart contract provides:
 ## 🔍 Verify Certificate
 
 <p align="center">
-<img src="screenshoots/VerifyCertiPage.jpg" width="900">
+<img src="screenshoots/VerifyCertiPage.jpg" width="500">
 </p>
 
 ---
@@ -253,7 +253,7 @@ The smart contract provides:
 ## 🎓 Certificate Verification Result
 
 <p align="center">
-<img src="screenshoots/CertiVerified.jpg" width="900">
+<img src="screenshoots/CertiVerified.jpg" width="500">
 </p>
 
 ---
@@ -261,7 +261,7 @@ The smart contract provides:
 ## 👨‍💼 Admin Dashboard
 
 <p align="center">
-<img src="screenshoots/AdminPage.jpg" width="900">
+<img src="screenshoots/AdminPage.jpg" width="500">
 </p>
 
 ---
@@ -269,7 +269,7 @@ The smart contract provides:
 ## 💾 SQLite Database
 
 <p align="center">
-<img src="screenshoots/DatabasePage.jpg" width="900">
+<img src="screenshoots/DatabasePage.jpg" width="500">
 </p>
 
 ---
