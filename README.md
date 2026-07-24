@@ -208,17 +208,88 @@ The smart contract provides:
 
 ---
 
-# 📷 Screenshots
+## 📸 Application Screenshots
 
-Add screenshots of:
+<p align="center">
+  <img src="screenshots/LoginPage.jpg" alt="Login Page" width="800"/>
+</p>
 
-- Home Page
-- Issue Certificate
-- Verify Certificate
-- Ganache
-- MetaMask
-- Smart Contract Deployment
+<p align="center">
+  <b>Login Page</b><br>
+  Secure entry point for administrators to access the certificate management system.
+</p>
 
+---
+
+### 🏠 Dashboard
+
+<p align="center">
+  <img src="screenshots/DashboardPage.jpg" alt="Dashboard" width="800"/>
+</p>
+
+<p align="center">
+  Central dashboard providing quick access to certificate issuance and verification.
+</p>
+
+---
+
+### 📜 Issue Certificate
+
+<p align="center">
+  <img src="screenshots/IssueCertiPage.jpg" alt="Issue Certificate" width="800"/>
+</p>
+
+<p align="center">
+  Fill in student and certificate details to issue a new blockchain-backed certificate.
+</p>
+
+---
+
+### ✅ Certificate Issued Successfully
+
+<p align="center">
+  <img src="screenshots/CertiIssued.jpg" alt="Certificate Issued" width="800"/>
+</p>
+
+<p align="center">
+  Displays the generated certificate hash and confirms successful blockchain registration.
+</p>
+
+---
+
+### 🔍 Verify Certificate
+
+<p align="center">
+  <img src="screenshots/VerifyCertiPage.jpg" alt="Verify Certificate" width="800"/>
+</p>
+
+<p align="center">
+  Verify certificate authenticity using the certificate hash stored on the blockchain.
+</p>
+
+---
+
+### 🎓 Certificate Details
+
+<p align="center">
+  <img src="screenshots/CertiVerified.jpg" alt="Certificate Verified" width="800"/>
+</p>
+
+<p align="center">
+  Shows complete certificate information retrieved securely from the blockchain.
+</p>
+
+---
+
+### 👨‍💼 Admin Panel
+
+<p align="center">
+  <img src="screenshots/AdminPage.jpg" alt="Admin Panel" width="800"/>
+</p>
+
+<p align="center">
+  Administrative interface for managing certificates, viewing reports, and monitoring system statistics.
+</p>
 ---
 
 # Future Enhancements
