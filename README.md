@@ -211,7 +211,7 @@ The smart contract provides:
 ## 📸 Application Screenshots
 
 <p align="center">
-  <img src="screenshots/LoginPage.jpg" alt="Login Page" width="800"/>
+  <img src="screenshoots/LoginPage.jpg" alt="Login Page" width="800"/>
 </p>
 
 <p align="center">
@@ -224,7 +224,7 @@ The smart contract provides:
 ### 🏠 Dashboard
 
 <p align="center">
-  <img src="screenshots/DashboardPage.jpg" alt="Dashboard" width="800"/>
+  <img src="screenshoots/DashboardPage.jpg" alt="Dashboard" width="800"/>
 </p>
 
 <p align="center">
@@ -236,7 +236,7 @@ The smart contract provides:
 ### 📜 Issue Certificate
 
 <p align="center">
-  <img src="screenshots/IssueCertiPage.jpg" alt="Issue Certificate" width="800"/>
+  <img src="screenshoots/IssueCertiPage.jpg" alt="Issue Certificate" width="800"/>
 </p>
 
 <p align="center">
@@ -248,7 +248,7 @@ The smart contract provides:
 ### ✅ Certificate Issued Successfully
 
 <p align="center">
-  <img src="screenshots/CertiIssued.jpg" alt="Certificate Issued" width="800"/>
+  <img src="screenshoots/CertiIssued.jpg" alt="Certificate Issued" width="800"/>
 </p>
 
 <p align="center">
@@ -260,7 +260,7 @@ The smart contract provides:
 ### 🔍 Verify Certificate
 
 <p align="center">
-  <img src="screenshots/VerifyCertiPage.jpg" alt="Verify Certificate" width="800"/>
+  <img src="screenshoots/VerifyCertiPage.jpg" alt="Verify Certificate" width="800"/>
 </p>
 
 <p align="center">
@@ -272,7 +272,7 @@ The smart contract provides:
 ### 🎓 Certificate Details
 
 <p align="center">
-  <img src="screenshots/CertiVerified.jpg" alt="Certificate Verified" width="800"/>
+  <img src="screenshoots/CertiVerified.jpg" alt="Certificate Verified" width="800"/>
 </p>
 
 <p align="center">
