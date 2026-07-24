@@ -237,7 +237,7 @@ The smart contract provides:
 ## ✅ Certificate Issued Successfully
 
 <p align="center">
-<img src="screenshoots/CertiIssued.jpg" width="900">
+<img src="screenshoots/CertiIssused.jpg" width="900">
 </p>
 
 ---
